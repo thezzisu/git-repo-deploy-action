@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra'
-import { execute } from './exec'
+import { execute, execAsync } from './exec'
 import { getConfig } from './config'
+import { info } from '@actions/core'
 
 export async function main () {
   const config = getConfig()
@@ -9,10 +10,11 @@ export async function main () {
   await fs.ensureDir('/tmp')
 
   try {
-    if (await execute(`git clone ${config.repo} -b ${config.branch} --depth 1 ${local}`, '/tmp')) {
+    if (await execAsync(`git clone ${config.repo} -b ${config.branch} --depth 1 ${local}`, '/tmp')) {
       throw new Error()
     }
   } catch (e) {
+    info(`Generating branch ${config.branch}`)
     if (await execute(`git clone ${config.repo} --depth 1 ${local}`, '/tmp')) {
       throw new Error('Bad repo')
     }
