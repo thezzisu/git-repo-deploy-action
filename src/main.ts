@@ -24,11 +24,14 @@ export async function main () {
 
   await execute(`git config user.name "${config.name}"`, local)
   await execute(`git config user.email "${config.email}"`, local)
-  await execute('git rm -r -f --ignore-unmatch "*"', local)
 
+  info('Removing old files')
+  await execute('git rm -r -f --ignore-unmatch "*"', local)
+  info('Copying new files')
   await execute(`rsync -q -av --progress ${config.src} ${local}${config.dst}`, config.workspace)
 
   if (config.single) {
+    info('Removing old commits')
     await execute(`git checkout --orphan ${config.branch}-temp`, local)
     await execute('git add --all .', local)
     await execute('git commit -m "deploy" --quiet', local)
