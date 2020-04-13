@@ -11,7 +11,7 @@ export interface IActionConfig {
   email: string
 }
 
-export function getConfig(): IActionConfig {
+export function getConfig (): IActionConfig {
   return {
     src: getInput('SRC') || 'dist',
     dst: getInput('DST') || '.',

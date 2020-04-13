@@ -3,7 +3,7 @@ description: 'This action will handle the deployment process of your project to 
 author: 'ZhangZisu <admin@zhangzisu.cn>'
 runs:
   using: 'node12'
-  main: 'lib/main.js'
+  main: 'dist/index.js'
 branding:
   icon: 'git-commit'
   color: 'orange'

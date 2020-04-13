@@ -6,7 +6,6 @@
   "author": "ZhangZisu <admin@zhangzisu.cn>",
   "license": "MIT",
   "devDependencies": {
-    "@types/concat-stream": "^1.6.0",
     "@types/fs-extra": "^8.1.0",
     "@types/node": "^12.12.14",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
@@ -24,13 +23,12 @@
     "@actions/core": "^1.2.3",
     "@actions/exec": "^1.0.3",
     "@actions/github": "^2.1.1",
-    "concat-stream": "^2.0.0",
     "fs-extra": "^9.0.0"
   },
   "scripts": {
     "prepare": "tsc",
     "build": "tsc",
-    "bundle": "ncc"
+    "bundle": "ncc -m build src/index.ts"
   },
   "publishConfig": {
     "access": "public"
