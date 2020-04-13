@@ -7,15 +7,19 @@ export interface IActionConfig {
   repo: string
   singleCommit: boolean
   workspace: string
+  name: string
+  email: string
 }
 
-export function getConfig (): IActionConfig {
+export function getConfig(): IActionConfig {
   return {
     src: getInput('SRC') || 'dist',
     dst: getInput('DST') || '.',
     branch: getInput('BRANCH') || 'master',
     repo: getInput('REPO'),
     singleCommit: getInput('SINGLE_INPUT') === 'true',
-    workspace: process.env.GITHUB_WORKSPACE || ''
+    workspace: process.env.GITHUB_WORKSPACE || '',
+    name: getInput('NAME') || 'Github Actions',
+    email: getInput('EMAIL') || 'noreply@actions.github.com'
   }
 }

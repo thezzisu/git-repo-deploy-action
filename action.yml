@@ -18,3 +18,7 @@ inputs:
     required: true
   SINGLE_COMMIT:
     required: false
+  NAME:
+    required: false
+  EMAIL:
+    required: false

@@ -7,10 +7,15 @@ export async function main () {
 
   const local = '/tmp/git-repo-deploy'
   await fs.ensureDir('/tmp')
+
   await execute(`git clone ${config.repo} -b ${config.branch} --depth 1 ${local}`, '/tmp')
 
+  await execute(`git config user.name "${config.name}"`, local)
+  await execute(`git config user.email "${config.email}"`, local)
   await execute('git rm -r -f --ignore-unmatch "*"', local)
+
   await execute(`cp -R ${config.src} ${local}/${config.dst}/`, config.workspace)
+
   if (config.singleCommit) {
     await execute(`git checkout --orphan ${config.branch}-temp`, local)
     await execute('git add --all .', local)

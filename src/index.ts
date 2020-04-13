@@ -1,9 +1,10 @@
+import * as core from '@actions/core'
 import { main } from './main'
 
 main()
   .then(() => {
-    console.log('Action finished')
+    core.info('Action finished')
   })
   .catch(e => {
-    console.log(e.message)
+    core.setFailed(e.message)
   })
