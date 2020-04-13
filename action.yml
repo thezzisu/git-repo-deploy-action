@@ -1,0 +1,31 @@
+name: 'Deploy to Arbitrary Git Repo'
+description: 'This action will handle the deployment process of your project to Arbitrary Git Repo.'
+author: 'ZhangZisu <admin@zhangzisu.cn>'
+runs:
+  using: 'node12'
+  main: 'index.js'
+branding:
+  icon: 'git-commit'
+  color: 'orange'
+inputs:
+  src:
+    description: 'The source directory to deploy. Relative to current project root. If not specified, `dist` will be used.'
+    required: false
+  dst:
+    description: 'The destination directory. Relative to destination git repo root. If not specified, will directly deploy to repo root.'
+    required: false
+  branch:
+    description: 'The target branch of the dest git repo.'
+    required: false
+  repo:
+    description: 'The full url of the dest git repo. HTTPS repos should include credentials. SSH repos should have extra setup.'
+    required: true
+  single:
+    description: 'Set true to override existed commits.'
+    required: false
+  name:
+    description: 'Git config name. Default: Github Actions'
+    required: false
+  email:
+    description: 'Git config email. Default: noreply@actions.github.com'
+    required: false
