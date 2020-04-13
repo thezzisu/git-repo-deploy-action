@@ -28,7 +28,7 @@
   "scripts": {
     "prepare": "tsc",
     "build": "tsc",
-    "bundle": "ncc -m build src/index.ts"
+    "bundle": "node bundle.js"
   },
   "publishConfig": {
     "access": "public"
