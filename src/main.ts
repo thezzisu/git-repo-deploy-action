@@ -14,7 +14,7 @@ export async function main () {
   await execute(`git config user.email "${config.email}"`, local)
   await execute('git rm -r -f --ignore-unmatch "*"', local)
 
-  await execute(`cp -R ${config.src}/* ${local}/${config.dst}/`, config.workspace)
+  await execute(`rsync -q -av --progress ${config.src} ${local}${config.dst}`, config.workspace)
 
   if (config.singleCommit) {
     await execute(`git checkout --orphan ${config.branch}-temp`, local)
