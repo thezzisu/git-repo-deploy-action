@@ -12,9 +12,9 @@ export interface IActionConfig {
 }
 
 export function getConfig (): IActionConfig {
-  return {
+  const config = {
     src: getInput('SRC') || 'dist',
-    dst: getInput('DST') || '.',
+    dst: getInput('DST') || '',
     branch: getInput('BRANCH') || 'master',
     repo: getInput('REPO'),
     singleCommit: getInput('SINGLE_INPUT') === 'true',
@@ -22,4 +22,7 @@ export function getConfig (): IActionConfig {
     name: getInput('NAME') || 'Github Actions',
     email: getInput('EMAIL') || 'noreply@actions.github.com'
   }
+  if (!config.src.endsWith('/')) config.src += '/'
+  if (config.dst)config.dst = '/' + config.dst
+  return config
 }
