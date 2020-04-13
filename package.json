@@ -30,7 +30,7 @@
   "scripts": {
     "prepare": "tsc",
     "build": "tsc",
-    "bundle": "ncc"
+    "bundle": "ncc -m build src/index.ts"
   },
   "publishConfig": {
     "access": "public"
