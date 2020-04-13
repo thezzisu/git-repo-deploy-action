@@ -8,7 +8,11 @@ export async function main () {
   const local = '/tmp/git-repo-deploy'
   await fs.ensureDir('/tmp')
 
-  if (await execute(`git clone ${config.repo} -b ${config.branch} --depth 1 ${local}`, '/tmp')) {
+  try {
+    if (await execute(`git clone ${config.repo} -b ${config.branch} --depth 1 ${local}`, '/tmp')) {
+      throw new Error()
+    }
+  } catch (e) {
     if (await execute(`git clone ${config.repo} --depth 1 ${local}`, '/tmp')) {
       throw new Error('Bad repo')
     }
