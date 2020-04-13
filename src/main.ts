@@ -10,10 +10,12 @@ export async function main () {
   await fs.ensureDir('/tmp')
 
   try {
-    if (await execAsync('git', ['clone', `${config.repo}`, '-b', `${config.branch}`, '--depth', '1', `${local}`], '/tmp')) {
-      throw new Error()
+    const code = await execAsync('git', ['clone', `${config.repo}`, '-b', `${config.branch}`, '--depth', '1', `${local}`], '/tmp')
+    if (code) {
+      throw new Error(`git exited with code ${code}`)
     }
   } catch (e) {
+    info(e.message)
     info(`Generating branch ${config.branch}`)
     if (await execute(`git clone ${config.repo} --depth 1 ${local}`, '/tmp')) {
       throw new Error('Bad repo')
