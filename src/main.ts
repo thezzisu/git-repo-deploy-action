@@ -10,7 +10,7 @@ export async function main () {
   await fs.ensureDir('/tmp')
 
   try {
-    if (await execAsync(`git clone ${config.repo} -b ${config.branch} --depth 1 ${local}`, '/tmp')) {
+    if (await execAsync('git', ['clone', `${config.repo}`, '-b', `${config.branch}`, '--depth', '1', `${local}`], '/tmp')) {
       throw new Error()
     }
   } catch (e) {
