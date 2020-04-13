@@ -62,6 +62,3 @@ typings/
 
 # TypeScript build
 build/
-
-# ncc
-dist/
