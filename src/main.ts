@@ -3,7 +3,7 @@ import { execute, execAsync } from './exec'
 import { getConfig } from './config'
 import { info } from '@actions/core'
 
-export async function main () {
+export async function main() {
   const config = getConfig()
 
   const local = '/tmp/git-repo-deploy'

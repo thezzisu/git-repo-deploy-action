@@ -3,9 +3,7 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['plugin:prettier/recommended'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -14,18 +12,19 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: './tsconfig.eslint.json'
   },
-  plugins: [
-    '@typescript-eslint'
-  ],
+  plugins: ['@typescript-eslint'],
   rules: {
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error", {
-      "vars": "all",
-      "args": "after-used",
-      "ignoreRestSiblings": false
-    }],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: false
+      }
+    ],
     '@typescript-eslint/no-floating-promises': 'error'
   }
 }

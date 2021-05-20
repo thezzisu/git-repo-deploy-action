@@ -5,6 +5,6 @@ main()
   .then(() => {
     core.info('Action finished')
   })
-  .catch(e => {
+  .catch((e) => {
     core.setFailed(e.message)
   })
