@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra'
-import { execute, execAsync } from './exec'
+import { execute, execAsync, nativeExecAsync } from './exec'
 import { getConfig } from './config'
 import { info } from '@actions/core'
 
@@ -31,6 +31,13 @@ export async function main() {
   await execute('git rm -r -f --ignore-unmatch "*"', local)
   info('Copying new files')
   await execute(`rsync -q -av --progress ${config.src} ${local}${config.dst}`, config.workspace)
+
+  const { stdout } = await nativeExecAsync('git status --porcelain')
+  if (!stdout.trim()) {
+    // Nothing to commit
+    info('Nothing to commit, exiting...')
+    return
+  }
 
   if (config.single) {
     info('Removing old commits')

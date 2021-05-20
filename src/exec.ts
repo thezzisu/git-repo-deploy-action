@@ -1,5 +1,6 @@
 import { exec } from '@actions/exec'
-import { spawn } from 'child_process'
+import cp, { spawn } from 'child_process'
+import { promisify } from 'util'
 
 export function execute(cmd: string, cwd: string) {
   return exec(cmd, [], { cwd })
@@ -15,3 +16,5 @@ export function execAsync(cmd: string, args: string[], cwd: string) {
     cp.on('error', (err) => reject(err))
   })
 }
+
+export const nativeExecAsync = promisify(cp.exec)
