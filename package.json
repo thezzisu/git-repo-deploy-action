@@ -1,6 +1,6 @@
 {
   "name": "git-repo-deploy-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "build/index.js",
   "description": "deploy to arbitrary git repo",
   "repository": "git@github.com:thezzisu/git-repo-deploy-action.git",
