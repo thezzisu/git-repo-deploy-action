@@ -32,21 +32,26 @@ export async function main() {
   info('Copying new files')
   await execute(`rsync -q -av --progress ${config.src} ${local}${config.dst}`, config.workspace)
 
-  const { stdout } = await executeWithStdio('git status --porcelain', local)
-  if (!stdout.trim()) {
-    // Nothing to commit
-    info('Nothing to commit, exiting...')
-    return
-  }
-
   if (config.single) {
     info('Removing old commits')
     await execute(`git checkout --orphan ${config.branch}-temp`, local)
     await execute('git add --all .', local)
+    const { stdout } = await executeWithStdio('git status --porcelain', local)
+    if (!stdout.trim()) {
+      // Nothing to commit
+      info('Nothing to commit, exiting...')
+      return
+    }
     await execute('git commit -m "deploy" --quiet', local)
     await execute(`git branch -M ${config.branch}-temp ${config.branch}`, local)
   } else {
     await execute('git add --all .', local)
+    const { stdout } = await executeWithStdio('git status --porcelain', local)
+    if (!stdout.trim()) {
+      // Nothing to commit
+      info('Nothing to commit, exiting...')
+      return
+    }
     await execute('git commit -m "deploy" --quiet', local)
   }
   await execute(`git push origin ${config.branch} --force`, local)
