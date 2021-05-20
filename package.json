@@ -2,8 +2,9 @@
   "name": "git-repo-deploy-action",
   "version": "1.0.0",
   "main": "build/index.js",
-  "repository": "git@github.com:ZhangZisu/git-repo-deploy-action.git",
-  "author": "ZhangZisu <admin@zhangzisu.cn>",
+  "description": "deploy to arbitrary git repo",
+  "repository": "git@github.com:thezzisu/git-repo-deploy-action.git",
+  "author": "thezzisu <thezzisu@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
