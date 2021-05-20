@@ -19,7 +19,7 @@ jobs:
     - run: npm i -g yarn
     - run: yarn
     - run: yarn bundle
-    - uses: thezzisu/git-repo-deploy-action@v1.0.1
+    - uses: thezzisu/git-repo-deploy-action@v1.0.2
       with:
         repo: ${{ secrets.REPO_WITH_TOKEN }}
         name: thezzisu
