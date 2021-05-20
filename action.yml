@@ -1,6 +1,6 @@
 name: 'Deploy to Arbitrary Git Repo'
 description: 'This action will handle the deployment process of your project to Arbitrary Git Repo.'
-author: 'ZhangZisu <admin@zhangzisu.cn>'
+author: 'thezzisu <thezzisu@gmail.com>'
 runs:
   using: 'node12'
   main: 'index.js'
