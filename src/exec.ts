@@ -1,20 +1,24 @@
 import { exec } from '@actions/exec'
-import cp, { spawn } from 'child_process'
-import { promisify } from 'util'
 
-export function execute(cmd: string, cwd: string) {
-  return exec(cmd, [], { cwd })
+export function execute(cmd: string, cwd: string, args: string[] = []) {
+  return exec(cmd, args, { cwd })
 }
 
-export function execAsync(cmd: string, args: string[], cwd: string) {
-  return new Promise<number>((resolve, reject) => {
-    const cp = spawn(cmd, args, { cwd, stdio: 'inherit' })
-    cp.on('exit', (code, signal) => {
-      if (typeof code === 'number') return resolve(code)
-      reject(new Error('Process killed by ' + signal))
-    })
-    cp.on('error', (err) => reject(err))
+export async function executeWithStdio(cmd: string, cwd: string, args: string[] = []) {
+  let stdout = ''
+  let stderr = ''
+
+  const code = await exec(cmd, args, {
+    cwd,
+    listeners: {
+      stdout: (data: Buffer) => {
+        stdout += data.toString()
+      },
+      stderr: (data: Buffer) => {
+        stderr += data.toString()
+      }
+    }
   })
-}
 
-export const nativeExecAsync = promisify(cp.exec)
+  return { code, stdout, stderr }
+}

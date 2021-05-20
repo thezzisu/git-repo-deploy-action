@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra'
-import { execute, execAsync, nativeExecAsync } from './exec'
+import { execute, executeWithStdio } from './exec'
 import { getConfig } from './config'
 import { info } from '@actions/core'
 
@@ -10,7 +10,7 @@ export async function main() {
   await fs.ensureDir('/tmp')
 
   try {
-    const code = await execAsync('git', ['clone', `${config.repo}`, '-b', `${config.branch}`, '--depth', '1', `${local}`], '/tmp')
+    const code = await execute('git', '/tmp', ['clone', `${config.repo}`, '-b', `${config.branch}`, '--depth', '1', `${local}`])
     if (code) {
       throw new Error(`git exited with code ${code}`)
     }
@@ -32,7 +32,7 @@ export async function main() {
   info('Copying new files')
   await execute(`rsync -q -av --progress ${config.src} ${local}${config.dst}`, config.workspace)
 
-  const { stdout } = await nativeExecAsync('git status --porcelain')
+  const { stdout } = await executeWithStdio('git status --porcelain', local)
   if (!stdout.trim()) {
     // Nothing to commit
     info('Nothing to commit, exiting...')
