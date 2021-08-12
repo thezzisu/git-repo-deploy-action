@@ -2,29 +2,7 @@
 
 ## Examples
 
-```yaml
-name: Build and Deploy
-
-on:
-  push:
-    branches: [master]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Add Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - run: npm i -g yarn
-      - run: yarn
-      - run: yarn build
-      - uses: thezzisu/git-repo-deploy-action@v0
-        with:
-          repo: ${{ secrets.REPO_WITH_TOKEN }}
-```
+See [this action](./.github/workflows/latest.yml). This action is just being deployed using itself.
 
 ### Using ssh
 
